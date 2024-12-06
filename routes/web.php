@@ -3,7 +3,9 @@
 use Faker\Test\Provider\Collection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
+use App\Models\Task;
 
+/*
 class Task
 {
     public function __construct(
@@ -56,26 +58,23 @@ $tasks = [
         '2023-03-04 12:00:00'
     ),
 ];
-
+*/
 
 Route::get('/',function(){
     return redirect()->route('task.index');
 });
 
 #Index
-Route::get('tasks',function() use($tasks){
+Route::get('tasks',function(){
+    $tasks = Task::all();
     return view('index',[
         'tasks' => $tasks
     ]);
 })->name('task.index');
 
 #Show
-Route::get('task/{id}',function($id) use($tasks){
-    $task = collect($tasks)->firstWhere('id',$id);
-
-    if(!$task){
-        abort(Response::HTTP_NOT_FOUND);
-    }
+Route::get('task/{id}',function($id){
+    $task = Task::findOrFail($id);
 
     return view('show',[
         'task' => $task
