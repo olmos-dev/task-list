@@ -4,6 +4,7 @@ use Faker\Test\Provider\Collection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
+use Illuminate\Http\Request;
 
 /*
 class Task
@@ -72,6 +73,9 @@ Route::get('tasks',function(){
     ]);
 })->name('task.index');
 
+#create
+Route::view('task/create','create')->name('task.create');
+
 #Show
 Route::get('task/{id}',function($id){
     $task = Task::findOrFail($id);
@@ -81,5 +85,12 @@ Route::get('task/{id}',function($id){
     ]);
 
 })->name('task.show');
+
+#store
+Route::post('task/store', function (Request $request) {
+    dd($request->all());
+})->name('task.store');
+
+
 
 
