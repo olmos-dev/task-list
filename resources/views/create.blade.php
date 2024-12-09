@@ -8,11 +8,11 @@
     @csrf
     <div>
         <label for="tarea">Tarea </label>
-        <input type="text" name="tarea" id="tarea">
+        <input type="text" name="task" id="task">
     </div>
     <div>
         <label for="descripcion">Descripcion </label>
-        <textarea name="descripcion" id="descripcion" rows="5"></textarea>
+        <textarea name="description" id="description" rows="5"></textarea>
     </div>
     <div>
         <label for="long_descripcion">Descriocion detallada</label>

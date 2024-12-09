@@ -88,7 +88,21 @@ Route::get('task/{id}',function($id){
 
 #store
 Route::post('task/store', function (Request $request) {
-    dd($request->all());
+
+    $datos = $request->validate([
+        'task' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required'
+    ]);
+
+    $task = Task::create([
+        'title' => $datos['task'],
+        'description' => $datos['description'],
+        'long_description' => $datos['long_description']
+    ]);
+
+    return redirect()->route('task.show', ['id' => $task->id]);
+
 })->name('task.store');
 
 
