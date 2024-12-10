@@ -11,12 +11,12 @@
 @endsection
 
 @section('content')
-<form action="{{ route('task.update',['id' => $task->id ]) }}" method="post">
+<form action="{{ route('task.update',['task' => $task->id ]) }}" method="post">
     @csrf
     @method('put')
     <div>
         <label for="tarea">Tarea </label>
-        <input type="text" name="task" id="task" value="{{$task->title}}">
+        <input type="text" name="title" id="task" value="{{$task->title}}">
         @error('task')
             <small class="error-message">{{$message}}</small>
         @enderror

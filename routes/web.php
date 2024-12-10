@@ -5,6 +5,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest;
 
 /*
 class Task
@@ -65,7 +66,7 @@ Route::get('/',function(){
     return redirect()->route('task.index');
 });
 
-#Index
+#index
 Route::get('tasks',function(){
     $tasks = Task::all();
     return view('index',[
@@ -76,9 +77,8 @@ Route::get('tasks',function(){
 #create
 Route::view('task/create','create')->name('task.create');
 
-#Edit
-Route::get('task/{id}/edit',function($id){
-    $task = Task::findOrFail($id);
+#edit
+Route::get('task/{task}/edit',function(Task $task){
 
     return view('edit',[
         'task' => $task
@@ -87,53 +87,29 @@ Route::get('task/{id}/edit',function($id){
 })->name('task.edit');
 
 
-#Show
-Route::get('task/{id}',function($id){
-    $task = Task::findOrFail($id);
-
-    return view('show',[
+#show
+Route::get('/task/{task}', function (Task $task) {
+    return view('show', [
         'task' => $task
     ]);
-
 })->name('task.show');
 
 #update
-Route::put('task/{id}', function (Request $request, $id) {
+Route::put('task/{task}', function (TaskRequest $request, Task $task) {
 
-    $datos = $request->validate([
-        'task' => 'required|max:255',
-        'description' => 'required',
-        'long_description' => 'required'
-    ]);
+    $task->update($request->validated());
 
-    $task = Task::findOrFail($id);
-
-    $task->update([
-        'title' => $datos['task'],
-        'description' => $datos['description'],
-        'long_description' => $datos['long_description']
-    ]);
-
-    return redirect()->route('task.show', ['id' => $task->id])->with('success','La tarea se edito correctamente');
+    return redirect()->route('task.show', ['task' => $task->id])->with('success','La tarea se edito correctamente');
 
 })->name('task.update');
 
 #store
-Route::post('task/store', function (Request $request) {
+Route::post('task/store', function (TaskRequest $request) {
 
-    $datos = $request->validate([
-        'task' => 'required|max:255',
-        'description' => 'required',
-        'long_description' => 'required'
-    ]);
 
-    $task = Task::create([
-        'title' => $datos['task'],
-        'description' => $datos['description'],
-        'long_description' => $datos['long_description']
-    ]);
+    $task = Task::create($request->validated());
 
-    return redirect()->route('task.show', ['id' => $task->id])->with('success','La tarea se ha creado correctamente');
+    return redirect()->route('task.show', ['task' => $task->id])->with('success','La tarea se ha creado correctamente');
 
 })->name('task.store');
 

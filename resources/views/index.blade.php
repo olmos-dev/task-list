@@ -4,7 +4,7 @@
 
 @section('content')
     @forelse ($tasks as $task )
-        <div><a href="{{ route('task.show',['id' => $task->id]) }}">{{$task->title}}</a></div>
+        <div><a href="{{ route('task.show',['task' => $task->id]) }}">{{$task->title}}</a></div>
     @empty
         <div>No hay tareas</div>
     @endforelse
