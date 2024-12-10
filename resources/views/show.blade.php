@@ -3,6 +3,13 @@
 @section('title',$task->title)
 
 @section('content')
+
+    @if (session()->has('success'))
+        <div>
+            {{session('success')}}
+        </div>
+    @endif
+
     <p>{{$task->description}}</p>
     @if ($task->long_description)
         <p>{{$task->long_description}}</p>

@@ -101,7 +101,7 @@ Route::post('task/store', function (Request $request) {
         'long_description' => $datos['long_description']
     ]);
 
-    return redirect()->route('task.show', ['id' => $task->id]);
+    return redirect()->route('task.show', ['id' => $task->id])->with('success','La tarea se ha creado correctamente');
 
 })->name('task.store');
 
