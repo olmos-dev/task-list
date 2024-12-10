@@ -68,7 +68,7 @@ Route::get('/',function(){
 
 #index
 Route::get('tasks',function(){
-    $tasks = Task::all();
+    $tasks = Task::latest()->paginate(10);
     return view('index',[
         'tasks' => $tasks
     ]);
