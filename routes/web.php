@@ -76,6 +76,17 @@ Route::get('tasks',function(){
 #create
 Route::view('task/create','create')->name('task.create');
 
+#Edit
+Route::get('task/{id}/edit',function($id){
+    $task = Task::findOrFail($id);
+
+    return view('edit',[
+        'task' => $task
+    ]);
+
+})->name('task.edit');
+
+
 #Show
 Route::get('task/{id}',function($id){
     $task = Task::findOrFail($id);
@@ -85,6 +96,27 @@ Route::get('task/{id}',function($id){
     ]);
 
 })->name('task.show');
+
+#update
+Route::put('task/{id}', function (Request $request, $id) {
+
+    $datos = $request->validate([
+        'task' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required'
+    ]);
+
+    $task = Task::findOrFail($id);
+
+    $task->update([
+        'title' => $datos['task'],
+        'description' => $datos['description'],
+        'long_description' => $datos['long_description']
+    ]);
+
+    return redirect()->route('task.show', ['id' => $task->id])->with('success','La tarea se edito correctamente');
+
+})->name('task.update');
 
 #store
 Route::post('task/store', function (Request $request) {
