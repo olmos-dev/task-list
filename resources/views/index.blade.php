@@ -11,18 +11,20 @@
         @endif
     </div>
 
-    <div>
-        <a href="{{route('task.create')}}"> Crear Tarea</a>
-    </div>
+    <nav class="mb-4">
+        <a href="{{route('task.create')}}" class="font-medium text-gray-700 underline decoration-pink-500"> Crear Tarea</a>
+    </nav>
 
     @forelse ($tasks as $task )
-        <div><a href="{{ route('task.show',['task' => $task->id]) }}">{{$task->title}}</a></div>
+        <div>
+            <a @class(['line-through font-bold' => $task->completed]) href="{{ route('task.show',['task' => $task->id]) }}">{{$task->title}}</a>
+        </div>
     @empty
         <div>No hay tareas</div>
     @endforelse
 
     @if ($tasks->count())
-        <nav>
+        <nav class="mt-4">
             {{$tasks->links()}}
         </nav>
     @endif
