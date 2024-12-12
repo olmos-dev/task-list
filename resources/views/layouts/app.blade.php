@@ -6,6 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    {{-- blade-formatter-disable --}}
+    <style type="text/tailwindcss">
+        .boton {
+        @apply rounded-md px-2 py-1 text-center font-medium text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50
+        }
+        .enlace {
+        @apply font-medium text-gray-700 underline decoration-pink-500
+        }
+        label{
+            @apply block uppercase text-slate-700 mb-2
+        }
+        input,textarea{
+            @apply shadow-sm appearance-none border w-full py-1 px-3 text-slate-700 leading-tight focus:outline-none
+        }
+        .errores{
+            @apply text-red-500
+        }
+    </style>
+    {{-- blade-formatter-enable --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     @yield('styles')
 </head>

@@ -20,35 +20,36 @@
     @isset($task)
         @method('put')
     @endisset
-    <div>
+    <div class="mb-4">
         <label for="tarea">Tarea </label>
-        <input type="text" name="title" id="task" value="{{$task->title ?? old('task')}}">
+        <input type="text" name="title" id="task" value="{{$task->title ?? old('task')}}" @class(['border-red-500' => $errors->has('title')])>
         @error('title')
-            <small class="error-message">{{$message}}</small>
+            <small class="errores">{{$message}}</small>
         @enderror
     </div>
-    <div>
+    <div class="mb-4">
         <label for="descripcion">Descripcion </label>
-        <textarea name="description" id="description" rows="5">{{$task->description ?? old('description')}}</textarea>
+        <textarea name="description" id="description" rows="5" @class(['border-red-500' => $errors->has('description')])>{{$task->description ?? old('description')}}</textarea>
         @error('description')
-            <small class="error-message">{{$message}}</small>
+            <small class="errores">{{$message}}</small>
         @enderror
     </div>
-    <div>
+    <div class="mb-4">
         <label for="long_descripcion">Descriocion detallada</label>
-        <textarea name="long_description" id="long_description" rows="10">{{$task->long_description ?? old('long_description')}}</textarea>
+        <textarea name="long_description" id="long_description" rows="10" @class(['border-red-500' => $errors->has('long_description')])>{{$task->long_description ?? old('long_description')}}</textarea>
         @error('long_description')
-            <small class="error-message">{{$message}}</small>
+            <small class="errores">{{$message}}</small>
         @enderror
     </div>
-    <div>
-        <button type="submit">
+    <div class="mb-4 flex gap-4 items-center">
+        <button type="submit" class="boton">
             @isset($task)
                 Actualizar tarea
             @else
                 Agregar tarea
             @endisset
         </button>
+        <a href="{{route('task.index')}}" class="boton">Cancelar</a>
     </div>
 </form>
 @endsection

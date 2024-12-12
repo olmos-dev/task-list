@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <a href="{{route("task.index")}}" class="font-medium text-gray-700 underline decoration-pink-500 "> <i class="fas fa-arrow-left"></i> Volver</a>
+    <a href="{{route("task.index")}}" class="enlace"> <i class="fas fa-arrow-left"></i> Volver</a>
 
     @if (session()->has('success'))
         <div>
@@ -27,18 +27,18 @@
     </p>
 
     <div class="flex gap-4">
-        <a href="{{route('task.edit', ['task' => $task->id]) }}" class="rounded-md px-2 py-1 text-center font-medium text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover: bg-slate-50">Editar</a>
+        <a href="{{route('task.edit', ['task' => $task->id]) }}" class="boton">Editar</a>
 
         <form action="{{ route('task.destroy', ['task' => $task->id]) }}" method="post">
             @csrf
             @method('delete')
-            <button type="submit" class="rounded-md px-2 py-1 text-center font-medium text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover: bg-slate-50">Eliminar</button>
+            <button type="submit" class="boton">Eliminar</button>
         </form>
 
         <form action="{{route('task.toggle', ['task' => $task]) }}" method="post">
             @csrf
             @method('put')
-            <button type="submit" class="rounded-md px-2 py-1 text-center font-medium text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover: bg-slate-50"> Marcar como {{$task->completed ? 'no completado' : 'completado'}}</button>
+            <button type="submit" class="boton"> Marcar como {{$task->completed ? 'no completado' : 'completado'}}</button>
         </form>
     </div>
 
