@@ -121,5 +121,12 @@ Route::delete('task/{task}', function(Task $task) {
 
 })->name('task.destroy');
 
+#toogle
+Route::put('task/{task}/toggle', function(Task $task){
+    $task->toggleComplete();
+    return redirect()->back()->with('success', 'Se actulizo el estado de la tarea');
+})->name('task.toggle');
+
+
 
 

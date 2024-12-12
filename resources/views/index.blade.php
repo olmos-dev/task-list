@@ -11,6 +11,10 @@
         @endif
     </div>
 
+    <div>
+        <a href="{{route('task.create')}}"> Crear Tarea</a>
+    </div>
+
     @forelse ($tasks as $task )
         <div><a href="{{ route('task.show',['task' => $task->id]) }}">{{$task->title}}</a></div>
     @empty
