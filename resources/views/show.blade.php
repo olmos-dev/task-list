@@ -6,11 +6,7 @@
 
     <a href="{{route("task.index")}}" class="enlace"> <i class="fas fa-arrow-left"></i> Volver</a>
 
-    @if (session()->has('success'))
-        <div>
-            {{session('success')}}
-        </div>
-    @endif
+    @include('partials.flash_messages')
 
     <p class="mb-4 text-slate-700">{{$task->description}}</p>
     @if ($task->long_description)
@@ -32,7 +28,7 @@
         <form action="{{ route('task.destroy', ['task' => $task->id]) }}" method="post">
             @csrf
             @method('delete')
-            <button type="submit" class="boton">Eliminar</button>
+            <button id="eliminar-tarea" type="submit" class="boton" data-id="{{ $task->id }}">Eliminar</button>
         </form>
 
         <form action="{{route('task.toggle', ['task' => $task]) }}" method="post">
@@ -42,5 +38,35 @@
         </form>
     </div>
 
+@endsection
+
+@section('js')
+<script>
+    document.addEventListener("DOMContentLoaded", (e) => {
+
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
+
+        var elemento = document.getElementById('eliminar-tarea')
+        var id = elemento.getAttribute('data-id')
+
+        elemento.addEventListener("click", function (e) {
+            e.preventDefault()
+            if (confirm("¿Estas seguro que deseas eliminarlo?") == true) {
+                axios.delete(`/task/${id}`, {
+                    id: this.id,
+                })
+                .then(function (response) {
+                    if (response.status == 200){
+                        window.location.href = "/";
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    alert(error)
+                });
+            }
+        });
+    });
+</script>
 @endsection
 

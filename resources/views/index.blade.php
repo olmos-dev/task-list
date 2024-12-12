@@ -3,13 +3,7 @@
 @section('title',"Lista de Tareas")
 
 @section('content')
-    <div>
-        @if (session()->has('success'))
-        <div>
-            {{session('success')}}
-        </div>
-        @endif
-    </div>
+    @include('partials.flash_messages')
 
     <nav class="mb-4">
         <a href="{{route('task.create')}}" class="enlace"> Crear Tarea</a>

@@ -68,7 +68,7 @@ Route::get('/',function(){
 
 #index
 Route::get('tasks',function(){
-    $tasks = Task::latest()->paginate(5);
+    $tasks = Task::latest()->paginate(10);
     return view('index',[
         'tasks' => $tasks
     ]);
@@ -116,9 +116,10 @@ Route::post('task/store', function (TaskRequest $request) {
 #delete
 Route::delete('task/{task}', function(Task $task) {
     $task->delete();
-
-    return redirect()->route('task.index')->with('success','Tarea eliminada');
-
+    #return redirect()->route('task.index')->with('success','Tarea eliminada');
+    return response()->json([
+        'status' => 'success'
+    ], 200);
 })->name('task.destroy');
 
 #toogle
